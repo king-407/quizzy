@@ -8,6 +8,8 @@ import {
 } from 'react-native';
 import React, {useEffect} from 'react';
 import Title from '../component/Title';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import auth from '@react-native-firebase/auth';
 const Home = ({navigation}) => {
   useEffect(() => {}, []);
 
@@ -15,7 +17,22 @@ const Home = ({navigation}) => {
     <View style={styles.container}>
       <StatusBar animated={true} backgroundColor="white" />
       <Title />
-
+      <AntDesign
+        name="logout"
+        color="white"
+        size={37}
+        style={{
+          backgroundColor: 'black',
+          padding: 10,
+          borderRadius: 50,
+          position: 'absolute',
+          top: 0,
+          right: 13,
+        }}
+        onPress={() => {
+          auth().signOut();
+        }}
+      />
       <View style={styles.picConainer}>
         <Image style={styles.pic} source={require('../pictures/quiz.png')} />
       </View>

@@ -6,11 +6,40 @@ import {
   TouchableOpacity,
   StatusBar,
 } from 'react-native';
-import React from 'react';
+import React, {useEffect, useInsertionEffect, useState} from 'react';
 import Lottie from 'lottie-react-native';
-const Result = ({navigation, route}) => {
+import firestore from '@react-native-firebase/firestore';
+const Result = ({navigation, route, user}) => {
+  const [stored, setStored] = useState(0);
   const {score} = route.params;
-  const success = 'https://storyset.com/illustration/awards/cuate';
+  const getScore = async () => {
+    const saaman = await firestore()
+      .collection('users')
+      .doc(user.uid)
+      .get()
+      .then(console.log('data obtained'))
+      .catch(err => {
+        console.error(err);
+      });
+    setStored(saaman._data.highScore);
+  };
+  useEffect(() => {
+    getScore();
+    if (score > stored) {
+      firestore()
+        .collection('users')
+        .doc(user.uid)
+
+        .update({
+          highScore: score,
+        })
+        .then(() => {
+          console.log('score updated');
+        });
+    }
+    console.log(stored);
+  }, []);
+
   return (
     <View style={{backgroundColor: 'white', height: '100%'}}>
       <StatusBar animated={true} backgroundColor="white" />
@@ -68,7 +97,7 @@ const Result = ({navigation, route}) => {
       <TouchableOpacity
         style={{
           backgroundColor: 'purple',
-          width: 300,
+          width: 350,
           alignSelf: 'center',
           marginTop: 20,
           borderRadius: 10,
@@ -83,6 +112,26 @@ const Result = ({navigation, route}) => {
             fontSize: 19,
           }}>
           Home
+        </Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={{
+          backgroundColor: 'purple',
+          width: 350,
+          alignSelf: 'center',
+          marginTop: 20,
+          borderRadius: 10,
+        }}
+        onPress={() => navigation.navigate('LeaderBoard')}>
+        <Text
+          style={{
+            padding: 10,
+            fontFamily: 'TiltWarp-Regular',
+            color: 'white',
+            alignSelf: 'center',
+            fontSize: 19,
+          }}>
+          Leaderboard
         </Text>
       </TouchableOpacity>
     </View>
