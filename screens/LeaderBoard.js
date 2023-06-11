@@ -1,6 +1,12 @@
 import {View, Text, TouchableOpacity} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import firestore from '@react-native-firebase/firestore';
+import {
+  responsiveFontSize,
+  responsiveHeight,
+  responsiveWidth,
+} from 'react-native-responsive-dimensions';
+import {ScrollView} from 'react-native-gesture-handler';
 const LeaderBoard = () => {
   const [entry, setEntry] = useState([]);
   const getScores = async () => {
@@ -20,70 +26,72 @@ const LeaderBoard = () => {
   }, []);
 
   return (
-    <View style={{backgroundColor: 'white', flex: 1, backgroundColor: 'white'}}>
-      <Text
-        style={{
-          color: 'black',
-          fontStyle: 'TiltWarp-Regular',
-          marginTop: 20,
-          fontSize: 30,
-          marginLeft: 32,
-        }}>
-        Leader Board 🏆 🏆
-      </Text>
-      <View style={{marginTop: 27}}>
-        {entry.map(student => {
-          return (
-            <TouchableOpacity
-              key={student.uid}
-              style={{
-                marginTop: 10,
-                height: 80,
-                width: 350,
-                backgroundColor: '#FFF2FD',
-                borderRadius: 35,
-
-                elevation: 10,
-
-                alignSelf: 'center',
-                // flexDirection: 'row',
-              }}>
-              <View
+    <ScrollView>
+      <View style={{backgroundColor: '#0047AB', flex: 1}}>
+        <Text
+          style={{
+            color: 'white',
+            fontStyle: 'TiltWarp-Regular',
+            marginTop: responsiveHeight(3),
+            fontSize: 30,
+            marginLeft: 32,
+          }}>
+          Leader Board 🏆 🏆
+        </Text>
+        <View style={{marginTop: 27}}>
+          {entry.map(student => {
+            return (
+              <TouchableOpacity
+                key={student.uid}
                 style={{
-                  flexDirection: 'row',
+                  marginTop: responsiveHeight(3),
+                  height: responsiveHeight(10),
+                  width: responsiveWidth(95),
+                  backgroundColor: 'white',
+                  borderRadius: responsiveWidth(8),
+
+                  elevation: 10,
+
+                  alignSelf: 'center',
+                  // flexDirection: 'row',
                 }}>
-                <Text
+                <View
                   style={{
-                    marginLeft: 30,
-                    marginTop: 15,
-
-                    fontSize: 23,
-                    width: '30%',
-                    color: 'black',
-
-                    fontFamily: 'TiltWarp-Regular',
+                    flexDirection: 'row',
                   }}>
-                  {student.name}
-                </Text>
+                  <Text
+                    style={{
+                      marginLeft: responsiveWidth(7),
+                      marginTop: responsiveHeight(3),
 
-                <Text
-                  style={{
-                    marginLeft: 40,
-                    marginTop: 23,
-                    fontSize: 23,
+                      fontSize: responsiveFontSize(3),
+                      width: '30%',
+                      color: '#0047AB',
 
-                    color: 'black',
-                    width: '50%',
-                    fontFamily: 'TiltWarp-Regular',
-                  }}>
-                  Score - {student.highScore}
-                </Text>
-              </View>
-            </TouchableOpacity>
-          );
-        })}
+                      fontFamily: 'TiltWarp-Regular',
+                    }}>
+                    {student.name}
+                  </Text>
+
+                  <Text
+                    style={{
+                      marginLeft: responsiveWidth(4),
+                      marginTop: responsiveHeight(3),
+                      fontSize: responsiveHeight(3),
+
+                      color: '#0047AB',
+                      width: '50%',
+                      fontFamily: 'TiltWarp-Regular',
+                    }}>
+                    Score - {student.highScore}
+                  </Text>
+                </View>
+              </TouchableOpacity>
+            );
+          })}
+        </View>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 

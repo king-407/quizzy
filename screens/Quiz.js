@@ -7,7 +7,13 @@ import {
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 
+import {
+  responsiveFontSize,
+  responsiveHeight,
+  responsiveWidth,
+} from 'react-native-responsive-dimensions';
 import Lottie from 'lottie-react-native';
+import {ScrollView} from 'react-native-gesture-handler';
 
 const Quiz = ({navigation}) => {
   const [questions, setQuestion] = useState('');
@@ -66,166 +72,165 @@ const Quiz = ({navigation}) => {
     return <Lottie source={require('../pictures/loader.json')} autoPlay />;
   }
   return (
-    <View style={styles.container}>
-      <StatusBar animated={true} backgroundColor="white" />
-      <View style={styles.top}>
-        <Text style={styles.heading}>
-          Q.{quesNo + 1}) {decodeURIComponent(questions.question)}
-        </Text>
-      </View>
-      {options.length > 2 ? (
-        <View style={styles.options}>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => {
-              handleAnswer(options[3]);
-            }}>
-            <Text
-              style={{
-                fontSize: 22,
-                color: 'white',
-                fontFamily: 'TiltWarp-Regular',
-              }}>
-              {decodeURIComponent(options[3])}
-            </Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => {
-              handleAnswer(options[0]);
-            }}>
-            <Text
-              style={{
-                color: 'white',
-
-                fontSize: 22,
-                fontFamily: 'TiltWarp-Regular',
-              }}>
-              {decodeURIComponent(options[0])}
-            </Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => {
-              handleAnswer(options[1]);
-            }}>
-            <Text
-              style={{
-                color: 'white',
-
-                fontSize: 22,
-                fontFamily: 'TiltWarp-Regular',
-              }}>
-              {decodeURIComponent(options[1])}
-            </Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => {
-              handleAnswer(options[2]);
-            }}>
-            <Text
-              style={{
-                color: 'white',
-                fontSize: 22,
-                fontFamily: 'TiltWarp-Regular',
-              }}>
-              {decodeURIComponent(options[2])}
-            </Text>
-          </TouchableOpacity>
-        </View>
-      ) : (
-        <View style={styles.options}>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => {
-              handleAnswer(options[1]);
-            }}>
-            <Text
-              style={{
-                color: 'white',
-
-                fontSize: 22,
-                fontFamily: 'TiltWarp-Regular',
-              }}>
-              {decodeURIComponent(options[1])}
-            </Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => {
-              handleAnswer(options[0]);
-            }}>
-            <Text
-              style={{
-                color: 'white',
-
-                fontSize: 22,
-                fontFamily: 'TiltWarp-Regular',
-              }}>
-              {decodeURIComponent(options[0])}
-            </Text>
-          </TouchableOpacity>
-        </View>
-      )}
-      <View style={styles.bottom}>
-        <TouchableOpacity
-          style={{
-            backgroundColor: 'purple',
-            borderRadius: 7,
-            padding: 15,
-
-            width: 200,
-          }}
-          onPress={() => {
-            navigation.navigate('Result', {
-              score,
-            });
-          }}>
-          <Text
+    <ScrollView style={styles.container}>
+      <View style={styles.container}>
+        {quesNo % 2 == 0 ? (
+          <Lottie
+            source={require('../animation/Quiz.json')}
+            style={{height: responsiveHeight(35), alignSelf: 'center'}}
+            autoPlay
+          />
+        ) : (
+          <Lottie
+            source={require('../animation/Idea.json')}
             style={{
-              color: 'white',
-
-              fontSize: 20,
+              height: responsiveHeight(45),
               alignSelf: 'center',
-              fontFamily: 'TiltWarp-Regular',
-            }}>
-            Show score
+            }}
+            autoPlay
+          />
+        )}
+        <StatusBar animated={true} backgroundColor="#0047AB" />
+        <View style={styles.top}>
+          <Text style={styles.heading}>
+            Q.{quesNo + 1}) {decodeURIComponent(questions.question)}
           </Text>
-        </TouchableOpacity>
+        </View>
+        {options.length > 2 ? (
+          <View style={styles.options}>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => {
+                handleAnswer(options[3]);
+              }}>
+              <Text
+                style={{
+                  fontSize: 22,
+                  color: '#0047AB',
+                  textAlign: 'center',
+                  fontFamily: 'TiltWarp-Regular',
+                }}>
+                {decodeURIComponent(options[3])}
+              </Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => {
+                handleAnswer(options[0]);
+              }}>
+              <Text
+                style={{
+                  color: '#0047AB',
+
+                  fontSize: 22,
+                  textAlign: 'center',
+                  fontFamily: 'TiltWarp-Regular',
+                }}>
+                {decodeURIComponent(options[0])}
+              </Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => {
+                handleAnswer(options[1]);
+              }}>
+              <Text
+                style={{
+                  color: '#0047AB',
+                  textAlign: 'center',
+                  fontSize: 22,
+                  fontFamily: 'TiltWarp-Regular',
+                }}>
+                {decodeURIComponent(options[1])}
+              </Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => {
+                handleAnswer(options[2]);
+              }}>
+              <Text
+                style={{
+                  color: '#0047AB',
+                  fontSize: 22,
+                  textAlign: 'center',
+                  fontFamily: 'TiltWarp-Regular',
+                }}>
+                {decodeURIComponent(options[2])}
+              </Text>
+            </TouchableOpacity>
+          </View>
+        ) : (
+          <View style={styles.options}>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => {
+                handleAnswer(options[1]);
+              }}>
+              <Text
+                style={{
+                  color: '#0047AB',
+
+                  fontSize: 22,
+                  textAlign: 'center',
+                  fontFamily: 'TiltWarp-Regular',
+                }}>
+                {decodeURIComponent(options[1])}
+              </Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => {
+                handleAnswer(options[0]);
+              }}>
+              <Text
+                style={{
+                  color: '#0047AB',
+
+                  fontSize: 22,
+                  textAlign: 'center',
+                  fontFamily: 'TiltWarp-Regular',
+                }}>
+                {decodeURIComponent(options[0])}
+              </Text>
+            </TouchableOpacity>
+          </View>
+        )}
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
 export default Quiz;
 const styles = StyleSheet.create({
-  container: {padding: 2, height: '100%', backgroundColor: 'white'},
+  container: {flex: 1, height: '100%', backgroundColor: '#0047AB'},
   top: {
     marginVertical: 10,
   },
   heading: {
     marginTop: 20,
-    fontSize: 25,
+    fontSize: responsiveFontSize(3),
 
-    color: 'black',
-    padding: 2,
+    color: 'white',
+
     margin: 20,
     fontFamily: 'TiltWarp-Regular',
   },
   options: {
-    marginVertical: 10,
     flex: 1,
   },
   button: {
-    padding: 20,
-    backgroundColor: 'purple',
-    margin: 10,
+    backgroundColor: 'white',
+    marginBottom: responsiveHeight(3),
+    width: responsiveWidth(93),
+    height: responsiveHeight(8),
     borderRadius: 20,
+    alignSelf: 'center',
+    elevation: 10,
   },
   bottom: {
     justifyContent: 'center',

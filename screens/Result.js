@@ -9,6 +9,11 @@ import {
 import React, {useEffect, useInsertionEffect, useState} from 'react';
 import Lottie from 'lottie-react-native';
 import firestore from '@react-native-firebase/firestore';
+import {
+  responsiveFontSize,
+  responsiveHeight,
+  responsiveWidth,
+} from 'react-native-responsive-dimensions';
 const Result = ({navigation, route, user}) => {
   const [stored, setStored] = useState(0);
   const {score} = route.params;
@@ -41,20 +46,20 @@ const Result = ({navigation, route, user}) => {
   }, []);
 
   return (
-    <View style={{backgroundColor: 'white', height: '100%'}}>
-      <StatusBar animated={true} backgroundColor="white" />
-      <View style={{marginTop: 30}}>
+    <View style={{backgroundColor: '#0047AB', height: '100%'}}>
+      <StatusBar animated={true} backgroundColor="#0047AB" />
+      <View style={{marginTop: responsiveHeight(3)}}>
         {score >= 50 ? (
           <Lottie
             source={require('../animation/win.json')}
-            style={{height: 380, alignSelf: 'center'}}
+            style={{height: responsiveHeight(30), alignSelf: 'center'}}
             autoPlay
           />
         ) : (
           <>
             <Lottie
               source={require('../animation/loss.json')}
-              style={{height: 380, alignSelf: 'center'}}
+              style={{height: responsiveHeight(30), alignSelf: 'center'}}
               autoPlay
             />
           </>
@@ -63,10 +68,10 @@ const Result = ({navigation, route, user}) => {
       <View>
         <Text
           style={{
-            fontSize: 35,
+            fontSize: responsiveFontSize(4),
 
             alignSelf: 'center',
-            color: 'black',
+            color: 'white',
             fontFamily: 'TiltWarp-Regular',
           }}>
           Your score is {score}
@@ -78,17 +83,16 @@ const Result = ({navigation, route, user}) => {
               fontFamily: 'TiltWarp-Regular',
               fontSize: 35,
             }}>
-            {' '}
             Congratulation 🏆🏆!!
           </Text>
         ) : (
           <Text
             style={{
-              color: 'black',
-              fontFamily: 'TiltWarp-Regular',
-              fontSize: 35,
+              fontSize: responsiveFontSize(4),
+
               alignSelf: 'center',
-              marginTop: 10,
+              color: 'white',
+              fontFamily: 'TiltWarp-Regular',
             }}>
             Try again 😓😓
           </Text>
@@ -96,40 +100,42 @@ const Result = ({navigation, route, user}) => {
       </View>
       <TouchableOpacity
         style={{
-          backgroundColor: 'purple',
-          width: 350,
+          backgroundColor: 'white',
+          width: responsiveWidth(90),
+          elevation: 12,
           alignSelf: 'center',
           marginTop: 20,
-          borderRadius: 10,
+          borderRadius: responsiveWidth(4),
         }}
         onPress={() => navigation.navigate('Home')}>
         <Text
           style={{
             padding: 10,
             fontFamily: 'TiltWarp-Regular',
-            color: 'white',
+            color: '#0047AB',
             alignSelf: 'center',
-            fontSize: 19,
+            fontSize: responsiveFontSize(3),
           }}>
           Home
         </Text>
       </TouchableOpacity>
       <TouchableOpacity
         style={{
-          backgroundColor: 'purple',
-          width: 350,
+          backgroundColor: 'white',
+          width: responsiveWidth(90),
+          elevation: 12,
           alignSelf: 'center',
           marginTop: 20,
-          borderRadius: 10,
+          borderRadius: responsiveWidth(4),
         }}
         onPress={() => navigation.navigate('LeaderBoard')}>
         <Text
           style={{
             padding: 10,
             fontFamily: 'TiltWarp-Regular',
-            color: 'white',
+            color: '#0047AB',
             alignSelf: 'center',
-            fontSize: 19,
+            fontSize: responsiveFontSize(3),
           }}>
           Leaderboard
         </Text>
